@@ -1,0 +1,12 @@
+body {
+    background-color: cornsilk;
+}
+.ovl-prvky:hover {
+    cursor: pointer;
+}
+#canvas {
+    display: block;
+    margin: 20px auto;
+    background-color: white;
+    border: 3px solid gray;
+}
