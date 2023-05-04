@@ -37,7 +37,25 @@
     <img id="pause" class="ml-3 ovl-prvky" src="obr/pause.png" alt="pause">
     <img id="stop" class="ml-3 ovl-prvky" src="obr/stop.png" alt="stop">
   </div>
-  <canvas width="200" height="400" id="canvas"></canvas>
+  <div class="container" style="width: 226px;">
+    <div class="row">
+      <div class="col-sm">Rychlost</div>
+      <div class="col-sm p-0">Skóre</div>
+    </div>
+    <div class="row">
+      <div id="speed" class="col-sm text-center"></div>
+      <div id="score" class="col-sm text-center"></div>
+    </div>
+  </div>
+  <canvas width="200" height="400" id="canvas" class="my-1"></canvas>
+  <div class="container" style="width: 226px;">
+    <div class="row">
+      <div class="col-sm">
+        <p id="max-score">Rekord:</p>
+      </div>
+    </div>
+  </div>
+
 </main>
 <script src="script.js" type="module"></script>
 </body>

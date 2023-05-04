@@ -8,7 +8,7 @@ export class Board {
         this._canvas = canvas;
         this._block = new Block();
 
-        for (let j = 0; j < 21; j++) {
+        for (let j = 0; j < 23; j++) {
             let line = [];
             for (let i = 0; i < 10; i++) {
                 if (j < 20) {
@@ -26,6 +26,10 @@ export class Board {
     }
     drawCanvas() {
         let context = this._canvas.getContext("2d");
+        //vymazani canvasu
+        context.clearRect(0,0,200, 400);
+
+
         context.fillStyle = 'gray';
         //vykresleni plnych kosticek
         for (let j = 0; j < 20; j++) {

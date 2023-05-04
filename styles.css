@@ -3,6 +3,7 @@ body {
 }
 .ovl-prvky:hover {
     cursor: pointer;
+    opacity: 0.4;
 }
 #canvas {
     display: block;
