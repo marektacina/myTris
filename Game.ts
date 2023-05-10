@@ -16,6 +16,7 @@ export class Game {
     private _speedLabel;
     private _speed;
 
+
     constructor(canvas) {
         this._canvas = canvas;
         this._board = new Board(canvas);
@@ -45,6 +46,7 @@ export class Game {
         this._paused = false;
         this._gameStarted = true;
         let startX;
+        let startY;
 
         this._timer = setInterval(this.moveDown, 500 / (this._speed / 4));
 
@@ -69,11 +71,17 @@ export class Game {
 
         this._canvas.ontouchstart = (event) => {
             startX = event.changedTouches[0].clientX;
+            startY = event.changedTouches[0].clientY;
+        }
+
+        document.body.ontouchmove = (event) => {
+            event.preventDefault();
         }
 
         this._canvas.ontouchmove = (event) => {
             event.preventDefault();
             let currentX = event.changedTouches[0].clientX;
+            let currentY = event.changedTouches[0].clientY;
             if (currentX - startX >= 20) {
                 this.moveRight();
                 startX = currentX;
@@ -82,6 +90,10 @@ export class Game {
                 startX = currentX;
             }
 
+            if (currentY - startY >= 20) {
+                this.moveDown();
+                startY = currentY;
+            }
         }
 
         this._canvas.ontouchend = (event) => {
@@ -262,31 +274,31 @@ export class Game {
                     break;
             }
 
-            if (this._score >= 20 && this._score < 100 && this._speed < 5) {
+            if (this._score >= 100 && this._score < 200 && this._speed < 5) {
                 this._speed = 5;
                 clearInterval(this._timer);
                 this._timer = setInterval(this.moveDown, 500 / (this._speed / 4));
-            } else if (this._score >= 100 && this._score < 200 && this._speed < 6) {
+            } else if (this._score >= 200 && this._score < 400 && this._speed < 6) {
                 this._speed = 6 ;
                 clearInterval(this._timer);
                 this._timer = setInterval(this.moveDown, 500 / (this._speed / 4));
-            } else if (this._score >= 200 && this._score < 400 && this._speed < 7) {
+            } else if (this._score >= 400 && this._score < 800 && this._speed < 7) {
                 this._speed = 7 ;
                 clearInterval(this._timer);
                 this._timer = setInterval(this.moveDown, 500 / (this._speed / 4));
-            } else if (this._score >= 500 && this._score < 800 && this._speed < 8) {
+            } else if (this._score >= 800 && this._score < 1600 && this._speed < 8) {
                 this._speed = 8 ;
                 clearInterval(this._timer);
                 this._timer = setInterval(this.moveDown, 500 / (this._speed / 4));
-            } else if (this._score >= 1000 && this._speed < 9) {
+            } else if (this._score >= 1600 && this._score < 3200 && this._speed < 9) {
                 this._speed = 9;
                 clearInterval(this._timer);
                 this._timer = setInterval(this.moveDown, 500 / (this._speed / 4));
-            } else if (this._score >= 2000 && this._speed < 10) {
+            } else if (this._score >= 3200 && this._score < 6400 && this._speed < 10) {
                 this._speed = 10;
                 clearInterval(this._timer);
                 this._timer = setInterval(this.moveDown, 500 / (this._speed / 4));
-            } else if (this._score >= 4000 && this._speed < 11) {
+            } else if (this._score >= 6400 && this._speed < 11) {
                 this._speed = 11;
                 clearInterval(this._timer);
                 this._timer = setInterval(this.moveDown, 500 / (this._speed / 4));
@@ -298,7 +310,7 @@ export class Game {
 
 
             if (this._posY == 0) {
-                alert("Konec hry");
+                alert(`Konec hry. Dosažené skóre ${this._score}.`);
                 this._scoreLabel.innerHTML = `${this._score}`;
                 this.gameStop(false);
                 return;
@@ -350,12 +362,22 @@ export class Game {
                     this._maxScoreLabel. innerHTML = `Rekord: ${this._score}`;
                 }
                 this._score = 0;
+                this._speed = 4;
                 this._scoreLabel.innerHTML = `${this._score}`;
+                this._speedLabel.innerHTML = `${this._speed - 3}`;
                 this._paused = true;
                 this._board.drawCanvas();
                 this._board.createBlock();
                 this._gameStarted = false;
             }
+        }
+    }
+
+    clearRecord() {
+        if (confirm('Opravdu chceš rekord vymazat?')) {
+            this._maxScore = 0;
+            localStorage.removeItem('max');
+            this._maxScoreLabel. innerHTML = `Rekord: ${this._score}`;
         }
     }
 }

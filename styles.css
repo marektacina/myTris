@@ -5,6 +5,12 @@ body {
     cursor: pointer;
     opacity: 0.4;
 }
+
+#clear:hover {
+    cursor: pointer;
+    opacity: 0.4;
+}
+
 #canvas {
     display: block;
     margin: 20px auto;
